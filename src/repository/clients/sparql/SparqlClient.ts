@@ -14,6 +14,14 @@ export type RequestInput = {
     query : string
 }
 
+/**
+ * @description A client to send requests to SPARQL endpoints
+ * @author Christian Colonna
+ * @date 25-06-2021
+ * @export
+ * @class SparqlClient
+ * @implements {IClient}
+ */
 export class SparqlClient implements IClient  {
     sparqlEndpoint: string;
     graph: string;

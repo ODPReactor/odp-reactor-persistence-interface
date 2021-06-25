@@ -1,5 +1,13 @@
 import { IDataMapper } from "../IDataMapper";
 
+/**
+ * @description Converts sparql bindings to JSON objects
+ * @author Christian Colonna
+ * @date 25-06-2021
+ * @export
+ * @class SparqlDataMapper
+ * @implements {IDataMapper}
+ */
 export class SparqlDataMapper implements IDataMapper {
 
     toEntity(d: any): any {

@@ -2,11 +2,17 @@
   "name": "odp-reactor-persistence-interface",
   "version": "0.0.1",
   "description": "Set of interfaces and clients to handle communication between microservices, I/O and databases.",
-  "main": "build/index.js",
+  "main": "./index.js",
   "scripts": {
     "test": "jest",
-    "preinstall": "npx npm-force-resolutions"
+    "preinstall": "npx npm-force-resolutions",
+    "prepublishOnly": "tsc && rollup -c",
+    "compile": "rm -rf ./build/* && tsc && rollup -c"
   },
+  "files": [
+    "index.js",
+    "index.d.ts"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
@@ -22,6 +28,8 @@
     "@types/jest": "^26.0.23",
     "jest": "^27.0.5",
     "npm-force-resolutions": "^0.0.10",
+    "rollup": "^2.52.2",
+    "rollup-plugin-dts": "^3.0.2",
     "ts-jest": "^27.0.3"
   }
 }
