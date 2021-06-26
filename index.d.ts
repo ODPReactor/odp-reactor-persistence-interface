@@ -107,11 +107,12 @@ declare type RequestInput = {
  * @implements {IClient}
  */
 declare class SparqlClient implements IClient {
-    sparqlEndpoint: string;
-    graph: string;
+    sparqlEndpoint?: string;
+    graph?: string;
     sparqlQueryingEngine: any;
-    constructor(sparqlEndpoint: string, graph: string);
+    constructor(sparqlEndpoint?: string, graph?: string);
     setGraph(graph: string): void;
+    setSparqlEndpoint(sparqlEndpoint: string): void;
     static create({ sparqlEndpoint, graph }: CreateSparqlClientInput): SparqlClient | undefined;
     sendRequest(requestInput: RequestInput): Promise<any>;
 }
@@ -130,4 +131,4 @@ declare class SparqlDataMapper implements IDataMapper {
     parseBindings(comunicaBindings: any): Promise<any>;
 }
 
-export { SparqlClient, SparqlDataMapper, SparqlGraphTestHelper };
+export { IClient, IDataMapper, IQueryBuilder, IRepository, SparqlClient, SparqlDataMapper, SparqlGraphTestHelper };
