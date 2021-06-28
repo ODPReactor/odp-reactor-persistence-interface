@@ -6,7 +6,8 @@
   "types": "./build/index.d.ts",
   "scripts": {
     "test": "jest",
-    "compile": "npm test && rm -rf ./build/* && tsc"
+    "preinstall": "npx npm-force-resolutions",
+    "build": "npm test && rm -rf ./build/* && tsc"
   },
   "files": [
     "./build/index.js",
@@ -15,7 +16,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@comunica/actor-init-sparql": "^1.19.2",
+    "@comunica/actor-init-sparql": "^1.21.3",
     "dotenv": "^10.0.0",
     "fetch-sparql-endpoint": "^1.7.0",
     "nanoid": "^3.1.23"
