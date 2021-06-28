@@ -6,7 +6,6 @@
   "types": "./build/index.d.ts",
   "scripts": {
     "test": "jest",
-    "preinstall": "npx npm-force-resolutions",
     "build": "npm test && rm -rf ./build/* && tsc"
   },
   "files": [
@@ -18,16 +17,12 @@
   "dependencies": {
     "@comunica/actor-init-sparql": "^1.21.3",
     "dotenv": "^10.0.0",
-    "fetch-sparql-endpoint": "^1.7.0",
+    "fetch-sparql-endpoint": "^1.9.0",
     "nanoid": "^3.1.23"
-  },
-  "resolutions": {
-    "fetch-sparql-endpoint": "1.9.0"
   },
   "devDependencies": {
     "@types/jest": "^26.0.23",
     "jest": "^27.0.5",
-    "npm-force-resolutions": "^0.0.10",
     "rollup": "^2.52.2",
     "rollup-plugin-dts": "^3.0.2",
     "ts-jest": "^27.0.3",
