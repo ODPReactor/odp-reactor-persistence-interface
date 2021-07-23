@@ -1,8 +1,8 @@
 import { SparqlClient } from "../clients/sparql/SparqlClient"
-import {GraphTester} from "../clients/sparql/test/GraphTester"
+import {SparqlGraphTestHelper} from "../clients/sparql/test/SparqlGraphTestHelper"
 import {SparqlDataMapper} from "./SparqlDataMapper"
 
-const graphTester = new GraphTester()
+const graphTester = new SparqlGraphTestHelper()
 if (!process.env.TEST_SPARQL_ENDPOINT_URI) {
     throw new Error("No sparql endpoint for thest found")
 }

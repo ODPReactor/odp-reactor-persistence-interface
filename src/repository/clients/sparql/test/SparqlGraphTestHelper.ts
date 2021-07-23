@@ -9,7 +9,15 @@
 import { GraphRepository } from "../../../repositories/GraphRepository";
 import {nanoid} from "nanoid"
 
-export class GraphTester {
+/**
+ * @description Class to help create testing environment for sparql
+ *              It can generate graphId, create and delete graph on a provided endpoint, insert triples
+ * @author Christian Colonna
+ * @date 25-06-2021
+ * @export
+ * @class SparqlGraphTestHelper
+ */
+export class SparqlGraphTestHelper {
     graphRepository: GraphRepository;
 
     constructor(graphRepository? : GraphRepository) {

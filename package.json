@@ -2,26 +2,31 @@
   "name": "odp-reactor-persistence-interface",
   "version": "0.0.1",
   "description": "Set of interfaces and clients to handle communication between microservices, I/O and databases.",
-  "main": "build/index.js",
+  "main": "./build/index.js",
+  "types": "./build/index.d.ts",
   "scripts": {
     "test": "jest",
-    "preinstall": "npx npm-force-resolutions"
+    "build": "npm test && rm -rf ./build/* && tsc"
   },
+  "files": [
+    "./build/index.js",
+    "./build/index.d.ts"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@comunica/actor-init-sparql": "^1.19.2",
+    "@comunica/actor-init-sparql": "^1.21.3",
     "dotenv": "^10.0.0",
-    "fetch-sparql-endpoint": "^1.7.0",
+    "fetch-sparql-endpoint": "^1.9.0",
     "nanoid": "^3.1.23"
-  },
-  "resolutions": {
-    "fetch-sparql-endpoint": "1.9.0"
   },
   "devDependencies": {
     "@types/jest": "^26.0.23",
+    "@types/node": "^15.12.5",
     "jest": "^27.0.5",
-    "npm-force-resolutions": "^0.0.10",
-    "ts-jest": "^27.0.3"
+    "rollup": "^2.52.2",
+    "rollup-plugin-dts": "^3.0.2",
+    "ts-jest": "^27.0.3",
+    "typescript": "^4.3.4"
   }
 }

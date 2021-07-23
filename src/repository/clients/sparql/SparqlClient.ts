@@ -14,19 +14,31 @@ export type RequestInput = {
     query : string
 }
 
+/**
+ * @description A client to send requests to SPARQL endpoints
+ * @author Christian Colonna
+ * @date 25-06-2021
+ * @export
+ * @class SparqlClient
+ * @implements {IClient}
+ */
 export class SparqlClient implements IClient  {
-    sparqlEndpoint: string;
-    graph: string;
+    sparqlEndpoint?: string;
+    graph?: string;
     sparqlQueryingEngine: any;
 
-    constructor(sparqlEndpoint : string, graph : string) {
-        this.sparqlEndpoint = sparqlEndpoint;
-        this.graph = graph;
+    constructor(sparqlEndpoint? : string, graph? : string) {
+        this.sparqlEndpoint = sparqlEndpoint || undefined;
+        this.graph = graph || undefined;
         this.sparqlQueryingEngine = newEngine();
     }
 
     setGraph(graph: string) {
         this.graph = graph
+    }
+
+    setSparqlEndpoint(sparqlEndpoint: string) {
+        this.sparqlEndpoint = sparqlEndpoint
     }
 
     static create({ sparqlEndpoint , graph } : CreateSparqlClientInput) {
@@ -41,7 +53,7 @@ export class SparqlClient implements IClient  {
             let comunicaParams = {
                 sources: [{ type: "sparql", value: this.sparqlEndpoint }],
                 // bind ?graph variable if not default graph
-                ...(this.graph !== "default" && {initialBindings: Bindings({
+                ...((this.graph && this.graph !== "default") && {initialBindings: Bindings({
                     '?graph' : factory.namedNode(this.graph)
                 })})
             }
