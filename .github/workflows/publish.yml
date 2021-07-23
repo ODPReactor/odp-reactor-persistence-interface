@@ -1,0 +1,30 @@
+name: odp-reactor-persistence-interface release and publish
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+          registry-url: 'https://registry.npmjs.org'
+      - name: odp-reactor-persistence-interface build test
+        run: npm install && npm run build && npm test
+        env:
+          TEST_SPARQL_ENDPOINT_URI: https://arco.istc.cnr.it/odpr/sparql/
+      - name: release odp-reactor-persistence-interface ${{ github.ref }} 
+        uses: softprops/action-gh-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: publish odp-reactor-persistence-interface ${{ github.ref }}
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
