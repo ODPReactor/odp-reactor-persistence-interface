@@ -7,8 +7,7 @@
   "scripts": {
     "test": "jest",
     "build": "npm test && rm -rf ./build/* && tsc",
-    "build:notest": "rm -rf ./build/* && tsc",
-    "prepublish": "npm run build:notest"
+    "build:notest": "rm -rf ./build/* && tsc && ls"
   },
   "files": [
     "./build/index.js",

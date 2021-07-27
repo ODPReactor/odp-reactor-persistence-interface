@@ -19,12 +19,15 @@ jobs:
       - name: install
         run: npm install
       - name: build
+        needs: install
         run: npm run build:notest
       - name: release odp-reactor-persistence-interface ${{ github.ref }} 
         uses: softprops/action-gh-release@v1
+        needs: build
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: publish odp-reactor-persistence-interface ${{ github.ref }}
+        needs: build # This makes it wait for the build job
         run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
