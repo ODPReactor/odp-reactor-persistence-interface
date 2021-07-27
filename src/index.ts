@@ -9,7 +9,7 @@ import {IRepository} from "./repository/IRepository"
 // implementations
 import {SparqlClient} from "./repository/clients/sparql/SparqlClient"
 import {SparqlDataMapper} from "./repository/datamappers/SparqlDataMapper"
-
+import {HttpRestClient} from "./repository/clients/http/HttpRestClient"
 
 // export public interfaces
 export {IClient, IDataMapper, IQueryBuilder, IRepository}
@@ -17,3 +17,4 @@ export {IClient, IDataMapper, IQueryBuilder, IRepository}
 // export public implementation
 export {SparqlGraphTestHelper}
 export {SparqlClient, SparqlDataMapper}
+export {HttpRestClient}
