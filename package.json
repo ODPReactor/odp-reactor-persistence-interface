@@ -16,6 +16,7 @@
   "license": "ISC",
   "dependencies": {
     "@comunica/actor-init-sparql": "^1.21.3",
+    "axios": "^0.21.1",
     "dotenv": "^10.0.0",
     "fetch-sparql-endpoint": "^1.9.0",
     "nanoid": "^3.1.23"
@@ -24,6 +25,7 @@
     "@types/jest": "^26.0.23",
     "@types/node": "^15.12.5",
     "jest": "^27.0.5",
+    "nock": "^13.1.1",
     "rollup": "^2.52.2",
     "rollup-plugin-dts": "^3.0.2",
     "ts-jest": "^27.0.3",
