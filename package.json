@@ -1,12 +1,12 @@
 {
   "name": "odp-reactor-persistence-interface",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "Set of interfaces and clients to handle communication between microservices, I/O and databases.",
   "main": "./build/index.js",
   "types": "./build/index.d.ts",
   "scripts": {
     "test": "jest",
-    "build:notest" : "rm -rf ./build/* && tsc",
+    "build:notest": "rm -rf ./build/* && tsc",
     "build": "npm test && rm -rf ./build/* && tsc"
   },
   "files": [
