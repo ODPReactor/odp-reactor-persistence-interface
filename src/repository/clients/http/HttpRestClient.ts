@@ -1,3 +1,5 @@
+import { AxiosResponse } from "axios";
+
 const axios = require('axios');
 
 type QueryParams = any
@@ -9,7 +11,7 @@ type HttpGetInput = {
 }
 
 export class HttpRestClient {
-    async get(input: HttpGetInput){
+    async get(input: HttpGetInput) : Promise<AxiosResponse<any>> {
         return axios.get(input.route, {
             params: input.queryParams ? input.queryParams : undefined,
             headers: input.headers ? input.headers : undefined
