@@ -26,6 +26,6 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: odp-reactor-persistence-interface build test
-        run: npm install && npm run build && npm test
+        run: npm ci --include=dev && npm run build && npm test
         env:
           TEST_SPARQL_ENDPOINT_URI: https://arco.istc.cnr.it/odpr/sparql/
