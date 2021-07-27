@@ -7,7 +7,7 @@
   "scripts": {
     "test": "jest",
     "build": "npm test && rm -rf ./build/* && tsc",
-    "build:notest": "rm -rf ./build/* && tsc && ls"
+    "build:notest": "rm -rf ./build/* && tsc"
   },
   "files": [
     "./build/index.js",
