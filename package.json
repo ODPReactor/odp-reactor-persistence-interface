@@ -6,7 +6,9 @@
   "types": "./build/index.d.ts",
   "scripts": {
     "test": "jest",
-    "build": "npm test && rm -rf ./build/* && tsc"
+    "build": "npm test && rm -rf ./build/* && tsc",
+    "build:notest": "rm -rf ./build/* && tsc",
+    "prepublish": "npm run build:notest"
   },
   "files": [
     "./build/index.js",

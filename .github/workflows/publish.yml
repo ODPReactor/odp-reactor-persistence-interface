@@ -16,15 +16,15 @@ jobs:
         with:
           node-version: 16
           registry-url: 'https://registry.npmjs.org'
-      - name: odp-reactor-persistence-interface build test
-        run: npm ci --include=dev && npm run build && npm test
-        env:
-          TEST_SPARQL_ENDPOINT_URI: https://arco.istc.cnr.it/odpr/sparql/
+      - name: install
+        run: npm install
+      - name: build
+        run: npm run build:notest
       - name: release odp-reactor-persistence-interface ${{ github.ref }} 
         uses: softprops/action-gh-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: publish odp-reactor-persistence-interface ${{ github.ref }}
-        run: npm publish
+        run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
