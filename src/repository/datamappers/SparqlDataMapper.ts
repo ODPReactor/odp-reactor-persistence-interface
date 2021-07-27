@@ -8,7 +8,7 @@ import { IDataMapper } from "../IDataMapper";
  * @class SparqlDataMapper
  * @implements {IDataMapper}
  */
-export class SparqlDataMapper implements IDataMapper {
+export class SparqlDataMapper implements IDataMapper<any,any> {
 
     toEntity(d: any): any {
         const binding = d
