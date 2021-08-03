@@ -2,6 +2,7 @@ import { IClient } from "../../IClient";
 import { newEngine } from "@comunica/actor-init-sparql";
 import { Bindings } from '@comunica/bus-query-operation';
 import { DataFactory } from 'rdf-data-factory';
+import { SparqlEndpointFetcher } from "fetch-sparql-endpoint";
 
 const factory = new DataFactory();
 
@@ -26,11 +27,13 @@ export class SparqlClient implements IClient  {
     sparqlEndpoint?: string;
     graph?: string;
     sparqlQueryingEngine: any;
+    updateQueryingEngine: SparqlEndpointFetcher;
 
     constructor(sparqlEndpoint? : string, graph? : string) {
         this.sparqlEndpoint = sparqlEndpoint || undefined;
         this.graph = graph || undefined;
         this.sparqlQueryingEngine = newEngine();
+        this.updateQueryingEngine = new SparqlEndpointFetcher()
     }
 
     setGraph(graph: string) {
@@ -64,5 +67,16 @@ export class SparqlClient implements IClient  {
             bindings = undefined;
         }
         return bindings;    
+    }
+
+    async sendUpdateRequest(requestInput: RequestInput) : Promise<any> {
+        if (!this.sparqlEndpoint) {
+            throw Error("No sparql endpoint to query")
+        }
+        return this.updateQueryingEngine.fetchUpdate(this.sparqlEndpoint, this.bindGraph(requestInput.query));
+    }
+
+    private bindGraph(query : string) {
+        return this.graph ? query.replace("?graph", `<${this.graph}>`) : query
     }
 }

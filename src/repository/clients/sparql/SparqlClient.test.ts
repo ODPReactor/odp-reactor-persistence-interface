@@ -118,4 +118,126 @@ describe("SparqlClient get data", () => {
 
     })
 
+    test("It should enter data into sparql endpoint graph", async () => {
+
+        const testGraph = graphTester.getUniqueGraphId()
+
+        const sparqlClient = SparqlClient.create({sparqlEndpoint : process.env.TEST_SPARQL_ENDPOINT_URI})
+
+        if (!sparqlClient) {
+            throw Error("No process.env.TEST_SPARQL_ENDPOINT_URI specified")
+        }
+
+        // create test graph
+        const createTestGraphQuery = `CREATE SILENT GRAPH <${testGraph}>`
+
+        await sparqlClient.sendUpdateRequest({
+            query: createTestGraphQuery
+        })
+
+        // switch to query newly created graph 
+        sparqlClient.setGraph(testGraph)
+
+
+
+        // verify it has no triples
+        const query1 = `SELECT *
+                WHERE { GRAPH ?graph
+                { ?s ?p ?o }
+        }`
+        const results = await sparqlClient.sendRequest({
+                    query: query1
+        })
+
+        expect(results).toHaveLength(0)
+
+
+        // Let's try to insert triples
+       const insertDataQuery = `INSERT DATA {
+            GRAPH ?graph {
+                <subject_1> a <object_1>
+            }
+        }`
+
+        await sparqlClient.sendUpdateRequest({
+            query: insertDataQuery
+        })
+
+        const data = await sparqlClient.sendRequest({ query: query1 })
+
+
+        expect(data).toHaveLength(1)
+
+        await graphTester.cleanGraph(testGraph)
+
+    })
+
+    test("It should delete triples", async() => {
+
+        const testGraph = graphTester.getUniqueGraphId()
+
+        const sparqlClient = SparqlClient.create({sparqlEndpoint : process.env.TEST_SPARQL_ENDPOINT_URI})
+
+        if (!sparqlClient) {
+            throw Error("No process.env.TEST_SPARQL_ENDPOINT_URI specified")
+        }
+
+        // create test graph
+        const createTestGraphQuery = `CREATE SILENT GRAPH <${testGraph}>`
+
+        await sparqlClient.sendUpdateRequest({
+            query: createTestGraphQuery
+        })
+
+        // switch to query newly created graph 
+        sparqlClient.setGraph(testGraph)
+
+
+
+        // verify it has no triples
+        const query1 = `SELECT *
+                WHERE { GRAPH ?graph
+                { ?s ?p ?o }
+        }`
+        const results = await sparqlClient.sendRequest({
+                    query: query1
+        })
+
+        expect(results).toHaveLength(0)
+
+
+        // Let's try to insert triples
+       const insertDataQuery = `INSERT DATA {
+            GRAPH ?graph {
+                <subject_1> a <object_1>
+            }
+        }`
+
+        await sparqlClient.sendUpdateRequest({
+            query: insertDataQuery
+        })
+
+        const data = await sparqlClient.sendRequest({ query: query1 })
+        expect(data).toHaveLength(1)
+
+        // delete triples from graph
+
+        const deleteDataQuery = `DELETE WHERE { GRAPH ?graph {
+                <subject_1> a <object_1>
+            }
+        }`
+
+        await sparqlClient.sendUpdateRequest({
+            query: deleteDataQuery
+        })
+
+        // verify data are deleted
+
+        const deletedData = await sparqlClient.sendRequest({ query: query1 })
+        expect(deletedData).toHaveLength(0)
+
+
+        await graphTester.cleanGraph(testGraph)
+    })
+
 })
