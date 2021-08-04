@@ -3,6 +3,7 @@ import { newEngine } from "@comunica/actor-init-sparql";
 import { Bindings } from '@comunica/bus-query-operation';
 import { DataFactory } from 'rdf-data-factory';
 import { SparqlEndpointFetcher } from "fetch-sparql-endpoint";
+import { ActorInitSparql } from "@comunica/actor-init-sparql/index-browser";
 
 const factory = new DataFactory();
 
@@ -26,7 +27,7 @@ export type RequestInput = {
 export class SparqlClient implements IClient  {
     sparqlEndpoint?: string;
     graph?: string;
-    sparqlQueryingEngine: any;
+    sparqlQueryingEngine: ActorInitSparql;
     updateQueryingEngine: SparqlEndpointFetcher;
 
     constructor(sparqlEndpoint? : string, graph? : string) {
@@ -42,6 +43,10 @@ export class SparqlClient implements IClient  {
 
     setSparqlEndpoint(sparqlEndpoint: string) {
         this.sparqlEndpoint = sparqlEndpoint
+    }
+
+    async invalidateCache() {
+        await this.sparqlQueryingEngine.invalidateHttpCache()
     }
 
     static create({ sparqlEndpoint , graph } : CreateSparqlClientInput) {
@@ -60,7 +65,7 @@ export class SparqlClient implements IClient  {
                     '?graph' : factory.namedNode(this.graph)
                 })})
             }
-            const result = await this.sparqlQueryingEngine.query(query, comunicaParams);
+            const result : any = await this.sparqlQueryingEngine.query(query, comunicaParams);
             bindings = await result.bindings();
         } catch (e) {
             console.log("[!] DbClient.executeQuery error:", e);
