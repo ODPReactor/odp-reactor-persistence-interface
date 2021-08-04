@@ -8,7 +8,7 @@ export class GraphQueryBuilder implements IQueryBuilder {
     }   
     delete(graphUri : string) {
         return `
-            CLEAR SILENT GRAPH <${graphUri}>
+            DROP SILENT GRAPH <${graphUri}>
         `
     }
     insert(graphUri : string, triple : string) {
